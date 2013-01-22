@@ -1,0 +1,94 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="gentoo"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git rails textmate ruby)
+
+source $ZSH/oh-my-zsh.sh
+
+
+# Customize to your needs...
+export PATH=~/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+#Python
+PATH=/usr/local/share/python:${PATH}
+#texlive
+PATH=/usr/texbin:${PATH}
+
+# Python
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+if [[ -r /usr/local/share/python/virtualenvwrapper.sh ]]; then
+    source /usr/local/share/python/virtualenvwrapper.sh
+else
+    echo "WARNING: Can't find virtualenvwrapper.sh"
+fi
+
+#vim
+alias vim="mvim -v"
+alias vi="mvim -v"
+alias VIM="mvim -v"
+alias vimdiff="mvim -vd"
+alias vm="ssh imagelife@192.168.11.112"
+alias sa="ssh yixiang.xiang@shterm.alipay.net"
+export EDITOR="mvim -v"
+
+#virtualbox
+alias xp="VBoxManage startvm d2d84c3d-2cf6-4446-9e67-f147ac29cf07"
+alias debian="VBoxManage startvm c365f12b-2fcc-42f5-b6ec-dc4ea7d43c38 --type headless"
+
+#use gnu ls utils
+if brew list | grep coreutils > /dev/null ; then
+   PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+   alias ls='ls -F --show-control-chars --color=auto'
+   eval `gdircolors -b $HOME/.dir_colors`
+fi
+
+#color grep egrep fgrep
+alias grep='grep --color'
+alias egrep='egrep --color'
+alias fgrep='fgrep --color'
+
+#sudo alias 
+alias sudo='sudo '
+#GFW
+alias gfw="autossh -M 2000 -N -D 7070 -f -p 9158 imagelife@173.255.223.143"
+
+#VPS
+alias vps="ssh -p 9158 imagelife@173.255.223.143"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+#RVM
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+
+#tmux
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
